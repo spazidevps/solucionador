@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil del Producto</title>
+</head>
+<body>
+    <h1>Perfil de Producto {{ producto.nombre_del_producto }}</h1>
+    <p>{{ producto.descripcion_del_producto }}</p>
+
+    <!-- Corregido para usar el parámetro correcto -->
+    <a href="{{ url_for('crear_solucion', producto_id=producto.id) }}">Crear Solución</a>
+    <a href="{{ url_for('ver_productos') }}">Volver a la lista de productos</a>
+</body>
+</html>

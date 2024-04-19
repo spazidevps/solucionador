@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Productos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    <table>
+        <tr>
+            <th>Nombre del Producto</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </tr>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.nombre_del_producto }}</td>
+            <td>{{ producto.descripcion_del_producto }}</td>
+            <td>
+                <a href="{{ url_for('ver_producto', id=producto.id) }}">Ver</a>
+                <a href="{{ url_for('editar_producto', id=producto.id) }}">Editar</a>
+                <form action="{{ url_for('eliminar_producto', id=producto.id) }}" method="post" style="display: inline;">
+                    <button type="submit" onclick="return confirm('¿Estás seguro de querer eliminar este producto?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('crear_producto') }}">Crear nuevo producto</a>
+</body>
+</html>

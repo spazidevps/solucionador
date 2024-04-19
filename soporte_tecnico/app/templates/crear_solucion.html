@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Solución</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let questionId = Date.now();  // Usamos un timestamp como ID base para evitar conflictos
+        
+            function addOption(containerId) {
+                let optionId = `option-${containerId}-${Date.now()}`;
+                $(`#options-${containerId}`).append(`
+                    <div id="${optionId}">
+                        <input type="text" name="options[${containerId}][]" placeholder="Opción" required>
+                        <button type="button" onclick="addSubQuestion('${optionId}')">Agregar Sub-pregunta</button>
+                        <button type="button" onclick="addBriefAnswer('${optionId}')">Agregar Respuesta Breve</button>
+                    </div>
+                `);
+            }
+        
+            function addSubQuestion(optionId) {
+                let subQuestionId = `sub-${optionId}-${Date.now()}`;
+                $(`#${optionId}`).append(`
+                    <div id="${subQuestionId}">
+                        <input type="text" name="subquestions[${optionId}][]" placeholder="Sub-pregunta" required>
+                        <div id="options-${subQuestionId}"></div>
+                        <button type="button" onclick="addOption('${subQuestionId}')">Agregar Opción</button>
+                    </div>
+                `);
+            }
+        
+            function addBriefAnswer(optionId) {
+                $(`#${optionId}`).append(`<input type="text" name="brief[${optionId}]" placeholder="Respuesta breve" required>`);
+            }
+        
+            $('#addOption').click(function() {
+                addOption('root');
+            });
+        
+            addOption('root');  // Agrega la primera opción automáticamente
+        });
+        </script>
+        
+</head>
+<body>
+    <h1>Crear Solución para {{ producto.nombre_del_producto }}</h1>
+    <form method="POST">
+        <input type="text" name="pregunta" placeholder="Pregunta principal" required>
+        <div id="options-root"></div>
+        <button type="button" id="addOption">Agregar Opción</button>
+        <button type="submit">Guardar Solución</button>
+    </form>
+</body>
+</html>

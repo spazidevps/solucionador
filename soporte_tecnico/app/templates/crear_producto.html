@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crear Producto</title>
+</head>
+<body>
+    <h1>Crear Producto</h1>
+    <form method="post">
+        <label for="nombre">Nombre del producto:</label>
+        <input type="text" name="nombre" id="nombre" required><br>
+        <label for="descripcion">Descripción del producto:</label>
+        <textarea name="descripcion" id="descripcion" required></textarea><br>
+        <input type="submit" value="Crear Producto">
+    </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>
